@@ -11,8 +11,9 @@ import {useAppState} from "../contexts/AppContext";
 import {useLogout} from "./useLogout";
 
 
-export function useCollectionAPI(query) {
+export function useCollectionAPI(query, id) {
     const queryClient = useQueryClient();
+
     const {handleOpenAlert} = useAppState();
     const {logout} = useLogout();
 
@@ -20,7 +21,7 @@ export function useCollectionAPI(query) {
 
     const searchCollectionData = useQuery(["getCollection", query], () => searchCollection(query));
 
-    const collectionDataById = useQuery(["getCollectionById"], CollectionById);
+    const collectionDataById = useQuery(["getCollectionById", id],()=> CollectionById(id));
 
     const collectionUpdate = useMutation(updateCollection, {
         onSuccess: () => {

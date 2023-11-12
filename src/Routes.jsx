@@ -24,7 +24,7 @@ const routes = () => (
                     <Route path="/admin" element={<AdminPage/>}/>
                     <Route path="/manager" element={<ManagerPage/>}/>
                     <Route path="/manager/create" element={<ManagerCreatePage/>}/>
-                    <Route path="/manager/edit" element={<ManagerEditPage/>}/>
+                    <Route path="/manager/edit/:id" element={<ManagerEditPage/>}/>
                 </Route>
                 <Route path="/donations" element={<DonationPage/>}/>
                 <Route path="/donations/:id" element={<DonationItemPage/>}/>
