@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import {Cookies} from "react-cookie";
 import {NavLink} from "react-router-dom";
+import {useLogout} from "../hooks/useLogout";
 
 const Profile = () => {
 
@@ -43,11 +44,10 @@ const Profile = () => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
+    const {logout} = useLogout();
     const Logout = async () => {
         setAnchorElUser(null);
-        const cookies = new Cookies();
-        await cookies.remove('token')
+        logout()
         setToken(null)
     }
 
@@ -80,12 +80,14 @@ const Profile = () => {
                     {token ? authorizedUserSettings.map((setting) => (
                             <MenuItem key={setting.path}
                                       onClick={setting.name === 'Log out' ? Logout : handleCloseUserMenu}>
-                                <Typography textAlign="center"><NavLink to={setting.path}>{setting.name}</NavLink></Typography>
+                                <Typography textAlign="center"><NavLink
+                                    to={setting.path}>{setting.name}</NavLink></Typography>
                             </MenuItem>
                         )) :
                         unauthorizedSettings.map((setting) => (
                             <MenuItem key={setting.path} onClick={handleCloseUserMenu}>
-                                <Typography textAlign="center"><NavLink to={setting.path}>{setting.name}</NavLink></Typography>
+                                <Typography textAlign="center"><NavLink
+                                    to={setting.path}>{setting.name}</NavLink></Typography>
                             </MenuItem>
 
                         ))
