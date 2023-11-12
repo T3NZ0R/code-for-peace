@@ -33,9 +33,9 @@ const LoginForm = () => {
             expires: tomorrow
         });
         if( response.roles === "admin"){
-
+            navigate('/admin')
         }
-        navigate('/dashboard');
+        navigate('/')
 
     };
     const signInMutation = useMutation(signIn, {
