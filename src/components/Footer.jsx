@@ -22,7 +22,13 @@ export const Footer = () => {
   const [value,setValue] = useState(undefined);
 
   return (
-    <footer>
+    <footer
+    style={{
+      position:'absolute',
+      bottom:0,
+      width:'100%'
+    }}
+    >
 
     <BottomNavigation
       showLabels
