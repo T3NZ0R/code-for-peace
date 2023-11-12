@@ -20,8 +20,9 @@ export const signUp = async (data) => {
 export const createCollection = async (data) => {
     const {data: response} = await axios.post(
         `${apiDataBaseUrl}/collection/create`,
-        ...headersToken(false),
-        data
+            data,
+        headersToken(true)
+        
     );
     return response;
 };

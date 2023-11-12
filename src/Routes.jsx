@@ -17,8 +17,8 @@ import DonationItemPage from "./pages/DonationPage/DonationItemPage/DonationItem
 
 const routes = () => (
 
-    <Router>
-        <Layout>
+        <Router>
+            <Layout>
             <Routes>
                 <Route element={<RequireAuth><ProtectedRoutes/></RequireAuth>}>
                     <Route path="/admin" element={<AdminPage/>}/>
