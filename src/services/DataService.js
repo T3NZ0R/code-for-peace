@@ -55,7 +55,7 @@ export const CollectionById = async (query) => {
 
 export const getImage = async (name) => {
     const {data: response} = await axios.get(
-        `${apiDataBaseUrl}/collection/image/${name}`,
+        `${apiDataBaseUrl}/images/${name}`,
     );
     return response;
 };
