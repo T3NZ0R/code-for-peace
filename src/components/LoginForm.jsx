@@ -41,12 +41,16 @@ const LoginForm = () => {
     },
   });
 
-  const handleSignIn = async (data) => {
-    signInMutation.mutate({
-      email: data.email,
-      password: data.password,
-    });
-  };
+
+    const handleSignIn = async (data) => {
+        signInMutation.mutate({
+            email: data.email,
+            password: data.password
+        });
+
+    };
+
+
 
   const formik = useFormik({
     initialValues: {
