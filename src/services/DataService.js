@@ -43,10 +43,10 @@ export const allCollection = async (query) => {
     return response;
 };
 
-export const CollectionById = async (id) => {
+export const CollectionById = async (query) => {
     const {data: response} = await axios.get(
-        `${apiDataBaseUrl}/collection/${id}`, {
-            ...headersToken(false)
+        `${apiDataBaseUrl}/collection/${query.id}`, {
+            ...headersToken()
         },
     );
     return response;

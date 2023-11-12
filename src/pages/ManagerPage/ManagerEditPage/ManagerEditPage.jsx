@@ -4,8 +4,9 @@ import { useCollectionAPI } from '../../../hooks/useCollectionAPI';
 
 const ManagerEditPage = () => {
     const {id} = useParams();
+    console.log(id,'idfskjfsjID')
 
-    const {collectionDataById:{data}} = useCollectionAPI(id);
+    const {collectionDataById:{data}} = useCollectionAPI({id:id});
 
     // useEffect(() => {
     //    const data = CollectionById(id);

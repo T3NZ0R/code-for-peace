@@ -5,13 +5,13 @@ import {
     CollectionById, collectionPending, collectionStatusUpdate,
     createCollection,
     searchCollection,
-    updateCollection, 
+    updateCollection,
 } from "../services/DataService";
 import {useAppState} from "../contexts/AppContext";
 import {useLogout} from "./useLogout";
 
 
-export function useCollectionAPI(query, id) {
+export function useCollectionAPI(query) {
     const queryClient = useQueryClient();
 
     const {handleOpenAlert} = useAppState();
@@ -19,9 +19,9 @@ export function useCollectionAPI(query, id) {
 
     const collectionData = useQuery(["getCollection", query], () => allCollection(query));
 
-    const searchCollectionData = useQuery(["getCollection", query], () => searchCollection(query));
+    const searchCollectionData = useQuery(["getCollectionSearch", query], () => searchCollection(query));
 
-    const collectionDataById = useQuery(["getCollectionById", id],()=> CollectionById(id));
+    const collectionDataById = useQuery(["getCollectionById", query],() => CollectionById(query));
 
     const collectionUpdate = useMutation(updateCollection, {
         onSuccess: () => {
