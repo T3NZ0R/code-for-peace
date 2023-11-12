@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button, TextField, Typography, Link} from '@mui/material';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
@@ -12,18 +12,25 @@ const validationSchemaRegister = yup.object({
 });
 
 const RegisterForm = () => {
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [successMessage, setSuccessMessage] = useState(null)
 
 
     const signUpMutation = useMutation(signUp, {
         onSuccess: (response) => {
-
+            setSuccessMessage('Registration success')
+            setErrorMessage(null)
         },
+        onError: (error) => {
+            setErrorMessage(error.response.data.message)
+            setSuccessMessage(null)
+        }
     });
 
 
     const handleSignUp = async (data) => {
         signUpMutation.mutate({
-			username: data.username,
+            username: data.username,
             email: data.email,
             password: data.password
         });
@@ -40,7 +47,7 @@ const RegisterForm = () => {
         validationSchema: validationSchemaRegister,
         onSubmit: async (values) => {
             try {
-                await handleSignUp({username:values.username, password: values.password, email: values.email})
+                await handleSignUp({username: values.username, password: values.password, email: values.email})
             } catch (e) {
                 console.warn(e);
             }
@@ -49,21 +56,20 @@ const RegisterForm = () => {
 
     return (
         <form onSubmit={formik.handleSubmit}
-            maxWidth="sm"
-            style={{
-                width:'30%',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              position: "absolute", 
-              padding:'50px',
-              border:'3px solid #007aff',
-              borderRadius:'20px',   
-         top: "40%",         
-         left:"50%",                
-         transform: "translate(-50%, -50%)" 
-            }}
+              style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding:'50px',
+                  border:'3px solid #007aff',
+                  borderRadius:'20px',
+                  top: "40%",
+                  marginLeft:"30%",
+                  maxWidth: '40%'
+
+              }}
         >
+            <Typography sx={{fontWeight: '700', fontSize: '20px'}}>REGISTRATION</Typography>
             <TextField
                 fullWidth
                 id="username"
@@ -114,6 +120,8 @@ const RegisterForm = () => {
                 error={!!formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                 helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             />
+            {errorMessage && <Typography sx={{color: 'red', fontWeight: '700', fontSize: '15px'}}>{errorMessage.toUpperCase()}</Typography>}
+            {successMessage && <Typography sx={{color: 'green', fontWeight: '700', fontSize: '15px'}}>{successMessage.toUpperCase()}</Typography>}
             <Button type="submit" variant="contained" color="primary" fullWidth style={{marginTop: '20px'}}>
                 Register
             </Button>

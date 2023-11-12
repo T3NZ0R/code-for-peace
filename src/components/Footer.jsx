@@ -22,8 +22,8 @@ export const Footer = () => {
   const [value,setValue] = useState(undefined);
 
   return (
-    <footer>
 
+    <footer>
     <BottomNavigation
       showLabels
       value={value}
