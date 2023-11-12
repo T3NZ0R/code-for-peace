@@ -8,12 +8,12 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Languages from "./Languages";
 import Profile from "./Profile";
 import {useTranslation} from "react-i18next";
+
 import {NavLink} from "react-router-dom";
 
 const Header = () => {
@@ -26,7 +26,7 @@ const Header = () => {
             path: '/'
         },
         {
-            name: 'Donation',
+            name: 'Donations',
             path: '/donations'
         },
         {
@@ -46,8 +46,8 @@ const Header = () => {
         <AppBar position="fixed">
             <Container maxWidth="xl">
                 <Toolbar disableGutters >
-                    <Box >
-                        KindFlow
+                    <Box sx={{margin: '0 40px', fontSize: '20px', color: 'yellow'}}>
+                        KINDFLOW
                     </Box>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -81,6 +81,7 @@ const Header = () => {
                         >
                             {pages.map((page, index) => (
                                 <MenuItem key={index} onClick={handleCloseNavMenu}>
+
                                     <Typography textAlign="center">
                                         <NavLink to={page.path}>{page.name}</NavLink>
                                     </Typography>
@@ -107,15 +108,17 @@ const Header = () => {
                     >
                         LOGO
                     </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex', gap:'20px'}, cursor: 'pointer'}}>
                         {pages.map((page, index) => (
-                            <Button
+                            <NavLink
                                 key={ index}
                                 onClick={handleCloseNavMenu}
-                                sx={{my: 2, color: 'white', display: 'block'}}
+                                style={{my: 2, color: 'white', display: 'block', textDecoration: 'none'}}
+                                to={page.path}
                             >
-                                <NavLink to={page.path}>{page.name}</NavLink>
-                            </Button>
+                                {page.name}
+                            </NavLink>
+
                         ))}
                     </Box>
                     <Languages/>
