@@ -7,8 +7,6 @@ const HomePage = () => {
     return (
         <>
             <Box sx={{
-                padding:"20vh 0",
-                border:'1px solid black',
                 display:'flex',
             }}>
                 <SwiperSlice/>

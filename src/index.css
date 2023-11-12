@@ -14,3 +14,11 @@ main{
 .mainWrap{
   width: 1200px;
 }
+
+
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}

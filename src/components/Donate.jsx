@@ -1,12 +1,10 @@
 import {Box, Button, Card, CardMedia, Grid,  Typography} from "@mui/material"
 import {styled} from "@mui/material/styles";
 import {useImageAPI} from "../hooks/useImageAPI";
-
+import mockPhoto from "../assets/img.png"
 
 const Donate = ({item}) => {
-    const {imageData:{data}} = useImageAPI(item.image)
-
-
+    const {imageData:{data}} = useImageAPI("c10783aef7badc3aa479f49f698d84994.png")
 
     return (
         <BoxWrap>
@@ -14,7 +12,7 @@ const Donate = ({item}) => {
                 <CardMedia
                     component="img"
                     height="140"
-                    image={data ? `${data}` : null}
+                    image={mockPhoto}
                     alt="Your Image Alt Text"
                 />
             </Card>
