@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import {useCollectionAPI} from "../../hooks/useCollectionAPI";
 
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
@@ -30,79 +31,86 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
     },
 }));
 
-const data = [
-    {
-        id: '1',
-        title: 'For drones',
-        status: 'approved',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 150000
-    },
-    {
-        id: '2',
-        title: 'For tanks',
-        status: 'pending',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 250000
-    },
-    {
-        id: '3',
-        title: 'For planes',
-        status: 'closed',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 350000
-    },
-    {
-        id: '4',
-        title: 'For ships',
-        status: 'pending',
-        description: 'About gathering money for some brigade for drones that they need About gathering money for some brigade for drones that they needAbout gathering money for some brigade for drones that they needrfdwf',
-        sum: 450000
-    },
-    {
-        id: '5',
-        title: 'For something',
-        status: 'approved',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 550000
-    },
-]
+// const data = [
+//     {
+//         id: '1',
+//         title: 'For drones',
+//         status: 'approved',
+//         description: 'About gathering money for some brigade for drones that they need',
+//         sum: 150000
+//     },
+//     {
+//         id: '2',
+//         title: 'For tanks',
+//         status: 'pending',
+//         description: 'About gathering money for some brigade for drones that they need',
+//         sum: 250000
+//     },
+//     {
+//         id: '3',
+//         title: 'For planes',
+//         status: 'closed',
+//         description: 'About gathering money for some brigade for drones that they need',
+//         sum: 350000
+//     },
+//     {
+//         id: '4',
+//         title: 'For ships',
+//         status: 'pending',
+//         description: 'About gathering money for some brigade for drones that they need About gathering money for some brigade for drones that they needAbout gathering money for some brigade for drones that they needrfdwf',
+//         sum: 450000
+//     },
+//     {
+//         id: '5',
+//         title: 'For something',
+//         status: 'approved',
+//         description: 'About gathering money for some brigade for drones that they need',
+//         sum: 550000
+//     },
+// ]
 
 const AdminPage = () => {
+
+    const {collectionPendingData: {data}, collectionStatus} = useCollectionAPI()
+    const handleUpdate = (id, status) => {
+        collectionStatus.mutate({
+            status: status,
+            id: id
+        });
+    }
     return (
 
         <TableContainer component={Paper}>
             <Table sx={{minWidth: 700}} aria-label="customized table">
                 <TableHead>
                     <TableRow>
-                        <StyledTableCell>ID</StyledTableCell>
                         <StyledTableCell>Title</StyledTableCell>
                         <StyledTableCell>Status</StyledTableCell>
-                        <StyledTableCell>Description</StyledTableCell>
                         <StyledTableCell>Sum</StyledTableCell>
                         <StyledTableCell>Action</StyledTableCell>
                         <StyledTableCell>Action</StyledTableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((collection) => (
+                    {data?.map((collection) => (
                         <StyledTableRow key={collection.id}>
-                            <StyledTableCell sx={{fontWeight: '700'}}>
-                                {collection.id}
-                            </StyledTableCell>
                             <StyledTableCell>{collection.title}</StyledTableCell>
                             <StyledTableCell>{collection.status.toUpperCase()}</StyledTableCell>
-                            <StyledTableCell
-                                sx={{maxWidth: 300}}>{collection.description.slice(0, 200)}</StyledTableCell>
-                            <StyledTableCell>{collection.sum}</StyledTableCell>
+
+                            <StyledTableCell>{collection.sum ? collection.sum : "no info"}</StyledTableCell>
                             <StyledTableCell>
-                                {collection.status === 'pending' && <Button variant="contained" color="success">
-                                    Approve
-                                </Button>}
+                                {collection.status === 'pending' &&
+                                    <Button variant="contained" color="success" onClick={() => {
+                                        handleUpdate(collection._id, "published")
+                                    }}>
+                                        Approve
+                                    </Button>}
                             </StyledTableCell>
                             <StyledTableCell>
-                                <Button variant="contained" color="error">
-                                    Delete
+                                <Button variant="contained" color="error" onClick={() => {
+                                    handleUpdate(collection._id, "rejected")
+                                }}>
+                                    Reject
                                 </Button>
                             </StyledTableCell>
 

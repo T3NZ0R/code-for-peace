@@ -22,13 +22,8 @@ export const Footer = () => {
   const [value,setValue] = useState(undefined);
 
   return (
-    <footer
-    style={{
 
-      width:'100%'
-    }}
-    >
-
+    <footer>
     <BottomNavigation
       showLabels
       value={value}
