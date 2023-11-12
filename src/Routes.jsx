@@ -33,10 +33,9 @@ const routes = () => (
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/about-us" element={<AboutUsPage/>}/>
-
             </Routes>
-            </Layout>
-        </Router>
+        </Layout>
+    </Router>
 
 )
 

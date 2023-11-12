@@ -13,7 +13,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Languages from "./Languages";
 import Profile from "./Profile";
 import {useTranslation} from "react-i18next";
-import {Link} from "@mui/material";
+
 import {NavLink} from "react-router-dom";
 
 const Header = () => {
@@ -81,7 +81,10 @@ const Header = () => {
                         >
                             {pages.map((page, index) => (
                                 <MenuItem key={index} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center"><Link to={page.path}>{page.name}</Link></Typography>
+
+                                    <Typography textAlign="center">
+                                        <NavLink to={page.path}>{page.name}</NavLink>
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -115,6 +118,7 @@ const Header = () => {
                             >
                                 {page.name}
                             </NavLink>
+
                         ))}
                     </Box>
                     <Languages/>
