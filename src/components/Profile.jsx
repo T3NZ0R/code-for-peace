@@ -6,6 +6,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import {NavLink} from "react-router-dom";
 
 const Profile = () => {
 
@@ -48,7 +49,7 @@ const Profile = () => {
                 >
                     {settings.map((setting) => (
                         <MenuItem key={setting.path} onClick={handleCloseUserMenu}>
-                            <Typography textAlign="center"><a href={setting.path}>{setting.name}</a></Typography>
+                            <Typography textAlign="center"><NavLink to={setting.path}>{setting.name}</NavLink></Typography>
                         </MenuItem>
                     ))}
                 </Menu>

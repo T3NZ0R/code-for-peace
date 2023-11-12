@@ -8,6 +8,7 @@ export const headersToken = (bearer = true) => {
     if (bearer) {
         return {
             headers: {
+                'ngrok-skip-browser-warning': 'true',
                 Authorization: `Bearer ${token}`
             }
         }

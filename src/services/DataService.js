@@ -35,11 +35,9 @@ export const updateCollection = async (data) => {
     return response;
 };
 
-export const allCollection = async () => {
+export const allCollection = async (query) => {
     const {data: response} = await axios.get(
-        `${apiDataBaseUrl}/collection`, {
-            ...headersToken(false)
-        },
+        `${apiDataBaseUrl}/collection?page=${query.page}`,
     );
     return response;
 };
@@ -54,3 +52,16 @@ export const CollectionById = async (id) => {
 };
 
 
+export const getImage = async (name) => {
+    const {data: response} = await axios.get(
+        `${apiDataBaseUrl}/collection/image/${name}`,
+    );
+    return response;
+};
+
+export const searchCollection = async (name) => {
+    const {data: response} = await axios.get(
+        `${apiDataBaseUrl}/collection/search/${name}`,
+    );
+    return response;
+};

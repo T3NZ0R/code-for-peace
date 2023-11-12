@@ -16,8 +16,9 @@ import ManagerEditPage from "./pages/ManagerPage/ManagerEditPage/ManagerEditPage
 import DonationItemPage from "./pages/DonationPage/DonationItemPage/DonationItemPage";
 
 const routes = () => (
-    <Layout>
-        <Router>
+
+    <Router>
+        <Layout>
             <Routes>
                 <Route element={<RequireAuth><ProtectedRoutes/></RequireAuth>}>
                     <Route path="/admin" element={<AdminPage/>}/>
@@ -33,8 +34,9 @@ const routes = () => (
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/about-us" element={<AboutUsPage/>}/>
             </Routes>
-        </Router>
-    </Layout>
+        </Layout>
+    </Router>
+
 )
 
 export default routes
