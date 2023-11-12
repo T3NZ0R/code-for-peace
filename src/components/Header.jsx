@@ -13,13 +13,15 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Languages from "./Languages";
 import Profile from "./Profile";
+import {useTranslation} from "react-i18next";
 
 const Header = () => {
+    const { t } = useTranslation();
 
 
     const pages = [
         {
-            name: 'Home',
+            name: t('home'),
             path: '/'
         },
         {
@@ -27,8 +29,8 @@ const Header = () => {
             path: '/donations'
         },
         {
-            name: 'AboutUs',
-            path: '/'
+            name: 'About Us',
+            path: '/about-us'
         }];
     const [anchorElNav, setAnchorElNav] = useState(null);
 
@@ -42,25 +44,10 @@ const Header = () => {
     return (
         <AppBar position="fixed">
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
-                    <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'none', md: 'flex'},
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography>
+                <Toolbar disableGutters >
+                    <Box >
+                        KindFlow
+                    </Box>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton

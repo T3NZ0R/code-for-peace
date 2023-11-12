@@ -10,7 +10,7 @@ export function useLogout() {
 
     const logout = () => {
         cookies.remove("token");
-        navigation("/login")
+        navigation("/")
     }
     // eslint-disable-next-line
     return useMemo(() => ({logout}), [navigation])

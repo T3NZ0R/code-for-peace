@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { TextField, Button, Typography, Link } from '@mui/material';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -6,6 +6,7 @@ import {signIn} from "../services/DataService";
 import {useMutation} from "@tanstack/react-query";
 import {Cookies} from "react-cookie";
 import * as Yup from 'yup';
+import {useNavigate} from "react-router-dom";
 
 
 const validationSchemaLogin = yup.object({
@@ -20,26 +21,31 @@ const validationSchemaLogin = yup.object({
 
 const LoginForm = () => {
 
+
+    const navigate = useNavigate()
+
     const settingToken = (response) => {
         const tomorrow = new Date();
         tomorrow.setDate(tomorrow.getDate() + 1);
         const cookies = new Cookies();
-        const token = response.token;
+        const token = response.tokens.access_token;
         cookies.set('token', token, {
             expires: tomorrow
         });
+        if( response.roles === "admin"){
+
+        }
+        navigate('/dashboard');
 
     };
-//@ts-ignore
     const signInMutation = useMutation(signIn, {
         onSuccess: (response) => {
             settingToken(response)
-        },
+        }
     } );
 
 
     const handleSignIn = async (data) => {
-        //@ts-ignore
         signInMutation.mutate({
             email: data.email,
             password: data.password

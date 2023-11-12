@@ -9,6 +9,14 @@ export const signIn = async (data) => {
     return response;
 };
 
+export const signUp = async (data) => {
+    const {data: response} = await axios.post(
+        `${apiDataBaseUrl}/auth/register`,
+        data
+    );
+    return response;
+};
+
 
 // I N F O
 
