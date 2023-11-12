@@ -1,18 +1,18 @@
 import {useMemo} from "react";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
     allCollection,
-    CollectionById,
+    CollectionById, collectionPending, collectionStatusUpdate,
     createCollection,
     searchCollection,
-    updateCollection
+    updateCollection, 
 } from "../services/DataService";
 import {useAppState} from "../contexts/AppContext";
 import {useLogout} from "./useLogout";
 
 
 export function useCollectionAPI(query) {
-
+    const queryClient = useQueryClient();
     const {handleOpenAlert} = useAppState();
     const {logout} = useLogout();
 
@@ -44,12 +44,28 @@ export function useCollectionAPI(query) {
         }
     });
 
+    const collectionStatus = useMutation(collectionStatusUpdate, {
+        onSuccess: () => {
+        },
+        onError: (err) => {
+            if (err.response.status === 401) {
+                logout()
+            }
+        }, onSettled: () => {
+            queryClient.invalidateQueries("get");
+        },
+    });
+
+    const collectionPendingData = useQuery(["getCollectionPending"], collectionPending);
+
 
     return useMemo(() => ({
         collectionData,
         searchCollectionData,
         collectionDataById,
         collectionUpdate,
-        collectionCreate
-    }), [collectionData, searchCollectionData, collectionDataById, collectionUpdate, collectionCreate])
+        collectionCreate,
+        collectionStatus,
+        collectionPendingData
+    }), [collectionData, searchCollectionData, collectionDataById, collectionUpdate, collectionCreate, collectionStatus, collectionPendingData])
 }

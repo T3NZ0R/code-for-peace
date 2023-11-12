@@ -22,7 +22,7 @@ export const createCollection = async (data) => {
         `${apiDataBaseUrl}/collection/create`,
             data,
         headersToken(true)
-        
+
     );
     return response;
 };
@@ -63,6 +63,22 @@ export const getImage = async (name) => {
 export const searchCollection = async (name) => {
     const {data: response} = await axios.get(
         `${apiDataBaseUrl}/collection/search/${name}`,
+    );
+    return response;
+};
+
+export const collectionPending = async () => {
+    const {data: response} = await axios.get(
+        `${apiDataBaseUrl}/collection/pending`,
+        {...headersToken()}
+    );
+    return response;
+};
+export const collectionStatusUpdate = async (data) => {
+    const {data: response} = await axios.put(
+        `${apiDataBaseUrl}/collection/update/${data.id}`,
+        {status: data.status},
+        {...headersToken()}
     );
     return response;
 };
