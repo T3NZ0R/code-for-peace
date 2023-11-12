@@ -77,6 +77,7 @@ const Profile = () => {
                     open={!!anchorElUser}
                     onClose={handleCloseUserMenu}
                 >
+
                     {token ? authorizedUserSettings.map((setting) => (
                             <MenuItem key={setting.path}
                                       onClick={setting.name === 'Log out' ? Logout : handleCloseUserMenu}>
@@ -90,7 +91,6 @@ const Profile = () => {
 
                         ))
                     }
-
                 </Menu>
             </Box>
 

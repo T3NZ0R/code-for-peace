@@ -1,37 +1,19 @@
-import { Grid, InputAdornment, TextField } from "@mui/material"
-import { useState } from "react";
-import Donate from "../../components/Donate";
+import {Box, InputAdornment, Pagination, Stack, TextField, Typography} from "@mui/material"
+import {useState} from "react";
 import SearchIcon from '@mui/icons-material/Search';
-
-
-const mockData = [
-    {
-        id: '1',
-        link: 'sdjfsjfdj',
-        title: 'sjhjfhfjs',
-        description: 'fkjskjdfkjsdklsdkjfdjhdfj jfdji shfjsdkjsd jkhjsdh isfh hsfhsf',
-        img: 'https://static.dw.com/image/51802658_605.jpg',
-    },
-    {
-        id: '2',
-        link: 'sdjfsjfdj',
-        title: 'sjhjfhfjs',
-        description: 'fkjskjdfkjsdklsdkjfdjhdfj jfdji shfjsdkjsd jkhjsdh isfh hsfhsf',
-
-        img: 'https://static.dw.com/image/51802658_605.jpg',
-    },
-    {
-        id: '3',
-        link: 'sdjfsjfdj',
-        title: 'sjhjfhfjs',
-        description: 'fkjskjdfkjsdklsdkjfdjhdfj jfdji shfjsdkjsd jkhjsdh isfh hsfhsf',
-        img: 'https://static.dw.com/image/51802658_605.jpg',
-    }
-
-]
+import {styled} from "@mui/material/styles";
+import Donate from "../../components/Donate";
+import {useCollectionAPI} from "../../hooks/useCollectionAPI";
 
 
 const DonationPage = () => {
+
+    const[page, setPage] = useState(1);
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+    const {collectionData: {data}} = useCollectionAPI({page: page});
+
 
     const [filterName, setFilterName] = useState('');
 
@@ -40,20 +22,11 @@ const DonationPage = () => {
     };
 
     return (
-        <Grid container spacing={2} mb={2} sx={{
-            border:'1px solid black',
-            margin:'0 auto',
-            width: '70%',
-            display:"flex",
-            flexDirection:"column"
-        }}>
-            <Grid item xs={6} md={4} sx={{
-                width:'100%',
-                margin: '0 auto',
-                paddingBottom:'20px'
-            }}>
+        <BoxMain>
+            <StyledBox>
+                <Typography variant={'h1'}>Fundraising</Typography>
                 <TextField
-                    fullWidth
+
                     size="small"
                     value={filterName}
                     onChange={handleFilterName}
@@ -62,23 +35,46 @@ const DonationPage = () => {
                         startAdornment: (
                             <InputAdornment position="start">
                                 <SearchIcon sx={{
-                                    cursor:'pointer'
-                                }} fontSize="large" color="primary" />
+                                    cursor: 'pointer'
+                                }} fontSize="large" color="primary"/>
                             </InputAdornment>
                         ),
                     }}
                 />
+            </StyledBox>
+            <BoxWrap>
+                {data ? data.map((item) => (<Donate key={item._id} item={item}/>)) : null}
+            </BoxWrap>
 
-            </Grid>
-            <Grid sx={{
-                display:'flex',
-                gap:'20px',
-                flexDirection:'column'
-            }}>
-                {mockData?.length && mockData.map((item, index) => (<Donate key={index} item={item}/>))}
-            </Grid>
-        </Grid>
+            <Stack spacing={2}>
+                <Pagination count={10} variant="outlined" shape="rounded" page={page} onChange={handleChange}/>
+            </Stack>
+        </BoxMain>
     )
 }
 
 export default DonationPage;
+
+const StyledBox = styled(Box)`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  align-items: center;
+`;
+
+
+const BoxWrap = styled(Box)`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+`;
+
+const BoxMain = styled(Box)`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+`;
