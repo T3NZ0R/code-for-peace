@@ -48,7 +48,22 @@ const RegisterForm = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit}
+            maxWidth="sm"
+            style={{
+                width:'30%',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              position: "absolute", 
+              padding:'50px',
+              border:'3px solid #007aff',
+              borderRadius:'20px',   
+         top: "40%",         
+         left:"50%",                
+         transform: "translate(-50%, -50%)" 
+            }}
+        >
             <TextField
                 fullWidth
                 id="username"
