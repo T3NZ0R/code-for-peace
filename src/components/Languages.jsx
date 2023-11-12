@@ -6,6 +6,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
+import {useTranslation} from "react-i18next";
 
 
 const Languages= () => {
@@ -19,9 +20,12 @@ const Languages= () => {
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-    const handleChangeLanguage = (item) =>{
+    const { i18n } = useTranslation();
+
+    const handleTrans = (code) => {
+        i18n.changeLanguage(code);
         handleCloseUserMenu()
-    }
+    };
 
 
     const handleCloseUserMenu = () => {
@@ -53,7 +57,7 @@ const Languages= () => {
                     onClose={handleCloseUserMenu}
                 >
                     {languages.map((language) => (
-                        <MenuItem key={language.locale} onClick={()=>handleChangeLanguage(language.locale)}>
+                        <MenuItem key={language.locale} onClick={()=>handleTrans(language.locale)}>
                             <Typography textAlign="center">{language.language}</Typography>
                         </MenuItem>
                     ))}

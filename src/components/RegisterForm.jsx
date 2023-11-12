@@ -3,6 +3,7 @@ import {Button, TextField, Typography, Link} from '@mui/material';
 import {useFormik} from 'formik';
 import * as yup from 'yup';
 import {useMutation} from "@tanstack/react-query";
+import {signUp} from "../services/DataService";
 
 const validationSchemaRegister = yup.object({
     email: yup.string().email('Invalid email address').required('Email is required'),
@@ -13,22 +14,21 @@ const validationSchemaRegister = yup.object({
 const RegisterForm = () => {
 
 
-    // //@ts-ignore
-    // const signUpMutation = useMutation(signUp, {
-    //     onSuccess: (response) => {
-    //
-    //     },
-    // });
+    const signUpMutation = useMutation(signUp, {
+        onSuccess: (response) => {
+
+        },
+    });
 
 
-    // const handleSignUp = async (data) => {
-    //     signUpMutation.mutate({
-	// 		username: data.username,
-    //         email: data.email,
-    //         password: data.password
-    //     });
-    //
-    // };
+    const handleSignUp = async (data) => {
+        signUpMutation.mutate({
+			username: data.username,
+            email: data.email,
+            password: data.password
+        });
+
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -39,11 +39,11 @@ const RegisterForm = () => {
         },
         validationSchema: validationSchemaRegister,
         onSubmit: async (values) => {
-            // try {
-            //     await handleSignUp({username:values.username, password: values.password, email: values.email})
-            // } catch (e) {
-            //     console.warn(e);
-            // }
+            try {
+                await handleSignUp({username:values.username, password: values.password, email: values.email})
+            } catch (e) {
+                console.warn(e);
+            }
         }
     });
 
@@ -51,9 +51,9 @@ const RegisterForm = () => {
         <form onSubmit={formik.handleSubmit}>
             <TextField
                 fullWidth
-                id="email"
-                name="email"
-                label="Email"
+                id="username"
+                name="username"
+                label="Username"
                 variant="outlined"
                 margin="normal"
                 value={formik.values.username}
