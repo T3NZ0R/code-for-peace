@@ -27,6 +27,15 @@ export const createCollection = async (data) => {
     return response;
 };
 
+export const getAllCollection = async () => {
+    const {data: response} = await axios.get(
+        `${apiDataBaseUrl}/collection`,
+        headersToken(true)
+
+    )
+return response
+}
+
 export const updateCollection = async (data) => {
     const {data: response} = await axios.put(
         `${apiDataBaseUrl}/collection/update/${data}`,
@@ -55,7 +64,7 @@ export const CollectionById = async (query) => {
 
 export const getImage = async (name) => {
     const {data: response} = await axios.get(
-        `${apiDataBaseUrl}/collection/image/${name}`,
+        `${apiDataBaseUrl}/images/${name}`,
     );
     return response;
 };
@@ -79,6 +88,16 @@ export const collectionStatusUpdate = async (data) => {
         `${apiDataBaseUrl}/collection/update/${data.id}`,
         {status: data.status},
         {...headersToken()}
+    );
+    return response;
+};
+
+export const updateManagerCollection = async (id,data) => {
+    const {data: response} = await axios.put(
+        `${apiDataBaseUrl}/collection/updateOne/${id}`,
+            data,
+        headersToken(true)
+
     );
     return response;
 };

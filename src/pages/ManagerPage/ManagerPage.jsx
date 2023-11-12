@@ -11,6 +11,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Button';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useCollectionAPI } from '../../hooks/useCollectionAPI';
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -31,46 +32,12 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
         border: 0,
     },
 }));
-
-const data = [
-    {
-        id: '1',
-        title: 'For drones',
-        link: 'approved',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 150000
-    },
-    {
-        id: '2',
-        title: 'For tanks',
-        link: 'pending',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 250000
-    },
-    {
-        id: '3',
-        title: 'For planes',
-        link: 'closed',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 350000
-    },
-    {
-        id: '4',
-        title: 'For ships',
-        link: 'pending',
-        description: 'About gathering money for some brigade for drones that they need About gathering money for some brigade for drones that they needAbout gathering money for some brigade for drones that they needrfdwf',
-        sum: 450000
-    },
-    {
-        id: '6550a96b12d2ec3e5369551a',
-        title: 'For something',
-        link: 'approved',
-        description: 'About gathering money for some brigade for drones that they need',
-        sum: 550000
-    },
-]
+  
 
 const ManagerPage = () => {
+
+    const {collectionData:{data}} = useCollectionAPI({page:1})
+
     const navigate = useNavigate();
     return (
         <div>
@@ -108,7 +75,7 @@ const ManagerPage = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map((collection) => (
+                    {data?.map((collection) => (
                         <StyledTableRow key={collection.id}>
                             <StyledTableCell sx={{fontWeight: '700'}}>
                                 {collection.id}

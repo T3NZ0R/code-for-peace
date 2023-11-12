@@ -83,8 +83,7 @@ const ManagerCreatePage = () => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           multiline
-          minRows={4}
-          sx={{ width: '100%', minHeight: '100px' }}
+          sx={{ width: '100%' }}
         />
         <TextField
           label="Sum"
